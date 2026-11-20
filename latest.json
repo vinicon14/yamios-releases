@@ -1,0 +1,25 @@
+{
+  "produto": "YAMI OS",
+  "canal": "estavel",
+  "versao": "0.5.0",
+  "build": "r5",
+  "data": "2026-11-20",
+  "notas": [
+    "Instalar AppImage: duplo clique em qualquer .AppImage instala no menu (e desinstala)",
+    "Grok Bot pré-instalado (app oficial para Linux)",
+    "App Atualizações YAMI OS (Vercel + GitHub)",
+    "Atualização sem perder dados salvos"
+  ],
+  "pacotes": [],
+  "iso": {
+    "url": null,
+    "sha256": "d55098e8d21045a094f2f1653ec2baa5cddec3a96289750b3e6c40815d257f4f",
+    "tamanho": 3114467328,
+    "kernel": "6.8.0-149-generic",
+    "observacao": "ISO completa não publicada (3,1 GB, acima do limite de 2 GB por arquivo do GitHub)."
+  },
+  "fontes": {
+    "vercel": "https://yami-site-pi.vercel.app/api/yamios/latest",
+    "github": "https://github.com/vinicon14/yamios-releases/releases/latest/download/latest.json"
+  }
+}
