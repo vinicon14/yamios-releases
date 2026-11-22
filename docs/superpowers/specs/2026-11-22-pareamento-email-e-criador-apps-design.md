@@ -18,12 +18,13 @@ Substituir o pareamento por código de 6 caracteres por um fluxo baseado em link
 
 ### 3.1 Fluxo
 
-1. O aplicativo chama `POST /api/pairing/start` com o nome do dispositivo.
-2. O site gera um token opaco de confirmação, válido por 10 minutos, e envia um link para o e-mail da conta autenticada.
-3. O usuário clica no link no mesmo navegador onde está autenticado.
-4. O site valida o token, o usuário e a licença, cria ou reutiliza o dispositivo e marca o pareamento como pronto.
-5. O aplicativo consulta `GET /api/pairing/poll` e recebe o token de dispositivo.
-6. O aplicativo armazena o token com `safeStorage` e passa a consultar conta e apps.
+1. O aplicativo pede o e-mail da conta e chama `POST /api/pairing/start` com e-mail e nome do dispositivo.
+2. O site valida a licença, gera um token opaco de confirmação, válido por 10 minutos, e envia um link para esse e-mail.
+3. O usuário clica no link; se não estiver autenticado, o site redireciona para `/entrar` e volta para `/parear?token=...`.
+4. A página `/parear` exibe um botão “Confirmar pareamento”; o navegador envia `POST /api/pairing/confirm` com o token.
+5. O site valida o token, o usuário e a licença, cria o dispositivo, grava o token de dispositivo no pareamento e marca-o como pronto.
+6. O aplicativo consulta `GET /api/pairing/poll` e recebe o token de dispositivo.
+7. O aplicativo armazena o token com `safeStorage` e passa a consultar conta e apps.
 
 O código de 6 caracteres deixa de ser exibido e digitado. O link é de uso único, expira em 10 minutos e não pode ser reutilizado.
 
@@ -39,14 +40,16 @@ O token de confirmação é armazenado apenas como hash HMAC-SHA256. O token em 
 
 ### 3.3 Rotas
 
-- `POST /api/pairing/start` — autenticado por token de dispositivo ou sessão; cria o pareamento e envia o e-mail.
-- `GET /api/pairing/confirm?token=...` — valida o token, redireciona para `/entrar?next=/parear` se necessário e confirma após login.
+- `POST /api/pairing/start` — anônimo; recebe e-mail e nome do dispositivo, valida a licença e envia o e-mail.
+- `GET /api/pairing/confirm?token=...` — valida o token e redireciona para `/entrar?next=/parear` se necessário; não consome o token.
+- `POST /api/pairing/confirm` — autenticado por sessão; consome o token, cria o dispositivo e grava o token de dispositivo.
 - `GET /api/pairing/poll` — inalterado, devolve `ready` com token de dispositivo.
 - `POST /api/pairing/resend` — reenvia o link, com limite de 3 tentativas por hora por conta.
 
 ### 3.4 Segurança
 
 - O link só confirma se o navegador estiver autenticado com a conta dona do pareamento.
+- O `GET` do link não consome o token; a confirmação ocorre apenas no `POST`.
 - O token expira em 10 minutos e é invalidado após uso.
 - Rate limit de 3 reenvios por hora por conta.
 - O token nunca é gravado em logs, manifesto ou pacote.
