@@ -1,36 +1,47 @@
-{
-  "produto": "YAMI OS",
-  "canal": "estavel",
-  "versao": "0.8.0",
-  "build": "r8",
-  "data": "2026-11-21",
-  "notas": [
-    "Integração com o site YAMI: conta, licença e pedidos dentro do sistema",
-    "Solicitações de melhorias com aprovação administrativa e acompanhamento",
-    "Avisos de aprovação, rejeição e publicação no aplicativo YAMI",
-    "Checkout com validação reforçada e proteção contra pagamentos duplicados",
-    "Atualização rápida por pacote: seus dados, Wi-Fi e aplicativos são mantidos"
-  ],
-  "pacotes": [
-    {
-      "versao": "0.8.0",
-      "deVersaoMinima": "0.7.0",
-      "url": "https://github.com/vinicon14/yamios-releases/releases/download/v0.8.0/yami-os-0.8.0-pacote.tar.zst",
-      "sha256": "e434778a8b08c9574f7d90c98cc348a00dc19c169c37cbca643995b593efe6d5",
-      "tamanho": 223645,
-      "descricao": "Aplicativo YAMI integrado, solicitações e correções de pagamento"
-    }
-  ],
-  "iso": {
-    "url": null,
-    "sha256": "ab8ee0bcd7ec59692f36beeeee34b9ee33380938603b55426af1b3946473e5b9",
-    "tamanho": 3523215360,
-    "kernel": "6.8.0-149-generic",
-    "partes": [],
-    "observacao": "ISO 0.8.0 ainda não publicada. O pacote incremental atualiza a 0.7.0 sem perder dados; a ISO 0.7.0 permanece como referência da última imagem completa."
-  },
-  "fontes": {
-    "vercel": "https://yami-site-pi.vercel.app/api/yamios/latest",
-    "github": "https://github.com/vinicon14/yamios-releases/releases/latest/download/latest.json"
-  }
+﻿{
+    "produto":  "YAMI OS",
+    "canal":  "estavel",
+    "versao":  "0.8.0",
+    "build":  "r8",
+    "data":  "2026-11-21",
+    "notas":  [
+                  "IntegraÃ§Ã£o com o site YAMI: conta, licenÃ§a e pedidos dentro do sistema",
+                  "SolicitaÃ§Ãµes de melhorias com aprovaÃ§Ã£o administrativa e acompanhamento",
+                  "Avisos de aprovaÃ§Ã£o, rejeiÃ§Ã£o e publicaÃ§Ã£o no aplicativo YAMI",
+                  "Checkout com validaÃ§Ã£o reforÃ§ada e proteÃ§Ã£o contra pagamentos duplicados",
+                  "AtualizaÃ§Ã£o rÃ¡pida por pacote: seus dados, Wi-Fi e aplicativos sÃ£o mantidos"
+              ],
+    "pacotes":  [
+                    {
+                        "versao":  "0.8.0",
+                        "deVersaoMinima":  "0.7.0",
+                        "url":  "https://github.com/vinicon14/yamios-releases/releases/download/v0.8.0/yami-os-0.8.0-pacote.tar.zst",
+                        "sha256":  "e434778a8b08c9574f7d90c98cc348a00dc19c169c37cbca643995b593efe6d5",
+                        "tamanho":  223645,
+                        "descricao":  "Aplicativo YAMI integrado, solicitaÃ§Ãµes e correÃ§Ãµes de pagamento"
+                    }
+                ],
+    "iso":  {
+                "url":  null,
+                "sha256":  "aa96926a63c28df2808bd43105776639eac72d653bd8d32bd33266fa63e1b5e3",
+                "tamanho":  3585277952,
+                "kernel":  "6.8.0-149-generic",
+                "partes":  [
+                               {
+                                   "url":  "https://github.com/vinicon14/yamios-releases/releases/download/v0.8.0/yami-os-0.8.0-r8.iso.parte01",
+                                   "sha256":  "a9d038fb5ea2ea87a17ceb9a5ee0330eaa722fe81d297085c3921364619cf4fa",
+                                   "tamanho":  1992294400
+                               },
+                               {
+                                   "url":  "https://github.com/vinicon14/yamios-releases/releases/download/v0.8.0/yami-os-0.8.0-r8.iso.parte02",
+                                   "sha256":  "969303239d971cbb0e3dca9efafda987e4c0f6d26b925fcdcb654920a5b1204b",
+                                   "tamanho":  1592983552
+                               }
+                           ],
+                "observacao":  "ISO completa 0.8.0 em 2 partes; baixe todas, confira o sha256 de cada uma e junte (cat parte01 parte02 ... \u003e yami-os-amd64.iso)."
+            },
+    "fontes":  {
+                   "vercel":  "https://yami-site-pi.vercel.app/api/yamios/latest",
+                   "github":  "https://github.com/vinicon14/yamios-releases/releases/latest/download/latest.json"
+               }
 }
