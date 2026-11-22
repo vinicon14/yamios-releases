@@ -13,6 +13,7 @@ Permitir que usuários com licença paga enviem aplicativos para o GitHub por me
 - O YAMI OS 0.8.0 já possui loja com catálogo local, ícones pixel art e instalação de apps pelo processo principal do Electron.
 - A release `v0.8.0` do `yamios-releases` contém o pacote incremental e a ISO em duas partes (`aa96926a63c28df2808bd43105776639eac72d653bd8d32bd33266fa63e1b5e3`).
 - O repositório de releases continua sem código-fonte; somente manifestos e assets.
+- O primeiro app a ser publicado será o YAMI Desktop Windows (2,5 GB), como download externo, com instalação nativa apenas para pacotes Linux.
 
 ## 3. Decisões aprovadas
 
@@ -25,6 +26,7 @@ Permitir que usuários com licença paga enviem aplicativos para o GitHub por me
 7. Interface de envio: anexo dentro do formulário de solicitação.
 8. Instalação no sistema sem `sudo`, com verificação de sha256 e atalho no menu do usuário.
 9. Página pública `/instalar-yami-os` com downloads, comandos copiáveis e sha256.
+10. Apps Windows aparecem na loja como downloads externos; não são instalados automaticamente no YAMI OS.
 
 ## 4. Backend de envio e publicação
 
@@ -49,7 +51,7 @@ A transição para `aprovada` continua pertencente ao administrador. A transiç�
 - `POST /api/conta/requests` — existente; passa a aceitar `fileName`, `fileSize`, `fileSha256`, `fileBlobPathname`, `appVersion` e `appIcon` junto com título, descrição e categoria.
 - `GET /api/admin/requests` — passa a incluir metadados de arquivo e URL assinada de leitura.
 - `POST /api/admin/requests/:id` — aprova/rejeita. A aprovação com arquivo baixa o Blob, confere tamanho e sha256, publica no GitHub como asset e grava `published_asset_url`.
-- `GET /api/apps` — lista apps publicados para usuários licenciados, com nome, versão, categoria, descrição, ícone, URL do asset, sha256, tamanho e data.
+- `GET /api/apps` — lista apps publicados para usuários licenciados, com nome, versão, categoria, descrição, ícone, URL do asset, sha256, tamanho, plataforma e data.
 
 O manifesto `yami-apps.json` também é publicado como asset da release `v0.8.0`, contendo os mesmos metadados de `/api/apps`.
 
@@ -64,14 +66,15 @@ O manifesto `yami-apps.json` também é publicado como asset da release `v0.8.0`
 ## 5. Loja no YAMI OS
 
 - Nova aba “Publicados” na loja, além das categorias atuais.
-- Cartões com ícone pixel art, nome, versão, categoria, tamanho, selo “Instalado” e botão “Instalar” ou “Atualizar”.
+- Cartões com ícone pixel art, nome, versão, categoria, tamanho, plataforma, selo “Instalado” e botão “Instalar” ou “Atualizar”.
 - O cliente HTTPS do processo principal consulta `/api/apps` com o token de dispositivo; o renderer nunca faz download direto.
-- Instalação:
+- Instalação de pacotes Linux:
   1. baixar para `~/.local/share/yami/downloads/`;
   2. conferir sha256 e tamanho;
   3. instalar em `~/.local/share/yami/apps/<id>/`;
   4. criar atalho `~/.local/share/applications/yami-app-<id>.desktop`;
   5. registrar versão em `~/.local/share/yami/apps.json`.
+- Apps com `platform: "windows"` são exibidos com botão “Baixar para Windows”; o download usa `published_asset_url` e não tenta instalar no YAMI OS.
 - Atualização compara versão instalada com o catálogo; remoção apaga somente arquivos do app e o atalho.
 - A confirmação exibe publicador, versão, tamanho e hash. Nenhum app é executado automaticamente.
 
@@ -97,6 +100,7 @@ O manifesto `yami-apps.json` também é publicado como asset da release `v0.8.0`
 - Testes de validação de arquivo, permissão de upload, aprovação administrativa e publicação do manifesto.
 - Teste de integração: enviar app → aprovar → `/api/apps` → instalar no YAMI com sha256 conferido.
 - Verificação da página de instalação contra o manifesto real com duas partes e os links da release.
+- Teste de download externo do app Windows sem instalação automática.
 
 ## 9. Fora de escopo
 
@@ -104,3 +108,4 @@ O manifesto `yami-apps.json` também é publicado como asset da release `v0.8.0`
 - Execução automática de apps após instalação.
 - Assinatura digital obrigatória de desenvolvedores.
 - Geração de uma nova ISO para cada app publicado.
+- Instalação automática de apps Windows no YAMI OS.
