@@ -1,33 +1,44 @@
 {
   "produto": "YAMI OS",
   "canal": "estavel",
-  "versao": "0.8.0",
-  "build": "r8",
-  "data": "2026-11-21",
+  "versao": "1.0.0",
+  "build": "r1",
+  "data": "2026-11-22",
   "notas": [
-    "Integração com o site YAMI: conta, licença e pedidos dentro do sistema",
-    "Solicitações de melhorias com aprovação administrativa e acompanhamento",
-    "Avisos de aprovação, rejeição e publicação no aplicativo YAMI",
-    "Checkout com validação reforçada e proteção contra pagamentos duplicados",
-    "Atualização rápida por pacote: seus dados, Wi-Fi e aplicativos são mantidos"
+    "YAMI OS 1.0.0: tela de login e contas de usuario separadas",
+    "Loja de aplicativos com instalacao segura e verificacao SHA-256",
+    "Publicacao de aplicativos pelo site com aprovacao administrativa",
+    "Pagina de instalacao com verificacao de partes da ISO",
+    "Atualizacao incremental preserva dados, Wi-Fi e aplicativos"
   ],
   "pacotes": [
     {
-      "versao": "0.8.0",
-      "deVersaoMinima": "0.7.0",
-      "url": "https://github.com/vinicon14/yamios-releases/releases/download/v0.8.0/yami-os-0.8.0-pacote.tar.zst",
-      "sha256": "558e09a4acae8011910567f099577ca958c91a22a7ccffafd53c2556e6d3404c",
-      "tamanho": 223920,
-      "descricao": "Aplicativo YAMI integrado, solicitações e correções de pagamento"
+      "versao": "1.0.0",
+      "deVersaoMinima": "0.8.0",
+      "url": "https://github.com/vinicon14/yamios-releases/releases/download/v1.0.0/yami-os-1.0.0-pacote.tar.zst",
+      "sha256": "3972f0f55000a185e76922406e2261f32f8ee782252a58da7424389755e96008",
+      "tamanho": 223924,
+      "descricao": "YAMI OS 1.0.0: login, contas, loja de apps e instalacao"
     }
   ],
   "iso": {
     "url": null,
-    "sha256": "ab8ee0bcd7ec59692f36beeeee34b9ee33380938603b55426af1b3946473e5b9",
-    "tamanho": 3523215360,
+    "sha256": "b75f8ea7ac68523904d2896c2cfe92cdf0706402af7e25429834f8eada3396bd",
+    "tamanho": 2709946368,
     "kernel": "6.8.0-149-generic",
-    "partes": [],
-    "observacao": "ISO 0.8.0 ainda não publicada. O pacote incremental atualiza a 0.7.0 sem perder dados; a ISO 0.7.0 permanece como referência da última imagem completa."
+    "partes": [
+      {
+        "url": "https://github.com/vinicon14/yamios-releases/releases/download/v1.0.0/yami-os-1.0.0.iso.parte01",
+        "sha256": "c667a96c052caae1ea0d7933fd3a813ca8236ea31f33cddd25ecec4448c7b4ba",
+        "tamanho": 1992294400
+      },
+      {
+        "url": "https://github.com/vinicon14/yamios-releases/releases/download/v1.0.0/yami-os-1.0.0.iso.parte02",
+        "sha256": "7e9e7ff33902e7c838ac4c1f2b11d14395500629059fe54425d349a96570f0d2",
+        "tamanho": 717651968
+      }
+    ],
+    "observacao": "ISO 1.0.0 completa, dividida em duas partes para download. Junte as partes e confira o SHA-256 antes de gravar."
   },
   "fontes": {
     "vercel": "https://yami-site-pi.vercel.app/api/yamios/latest",
