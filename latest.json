@@ -2,43 +2,45 @@
   "produto": "YAMI OS",
   "canal": "estavel",
   "versao": "1.0.0",
-  "build": "r1",
-  "data": "2026-11-22",
+  "build": "r5",
+  "data": "2026-11-23",
   "notas": [
-    "YAMI OS 1.0.0: tela de login e contas de usuario separadas",
-    "Loja de aplicativos com instalacao segura e verificacao SHA-256",
-    "Publicacao de aplicativos pelo site com aprovacao administrativa",
-    "Pagina de instalacao com verificacao de partes da ISO",
-    "Atualizacao incremental preserva dados, Wi-Fi e aplicativos"
+    "LightDM com greeter GTK instalado",
+    "Sem senha hardcoded; conta yami bloqueada",
+    "Troca de usuário e criação de contas pelo administrador",
+    "Criar apps: projetos, editor, validação e pacote para a loja",
+    "Loja com apps publicados e instalação com verificação de SHA-256",
+    "Página de instalação com ISO em duas partes",
+    "Atualização incremental preserva dados, Wi-Fi e aplicativos"
   ],
   "pacotes": [
     {
       "versao": "1.0.0",
       "deVersaoMinima": "0.8.0",
-      "url": "https://github.com/vinicon14/yamios-releases/releases/download/v1.0.0/yami-os-1.0.0-pacote.tar.zst",
-      "sha256": "3972f0f55000a185e76922406e2261f32f8ee782252a58da7424389755e96008",
-      "tamanho": 223924,
-      "descricao": "YAMI OS 1.0.0: login, contas, loja de apps e instalacao"
+      "url": "https://github.com/vinicon14/yamios-releases/releases/download/v1.0.0/undefined",
+      "sha256": "5105ca914fdd202b2f3b7918b4543c0f301840d938a97679d782558afebfa901",
+      "tamanho": 233028,
+      "descricao": "YAMI OS 1.0.0: login, contas, greeter, criar apps e loja"
     }
   ],
   "iso": {
     "url": null,
-    "sha256": "b75f8ea7ac68523904d2896c2cfe92cdf0706402af7e25429834f8eada3396bd",
-    "tamanho": 2709946368,
+    "sha256": "2604c72b828fbf4635c794513dfa5d8b86cdfe8fa2336cceb198614ecdad6c5a",
+    "tamanho": 3318644736,
     "kernel": "6.8.0-149-generic",
     "partes": [
       {
         "url": "https://github.com/vinicon14/yamios-releases/releases/download/v1.0.0/yami-os-1.0.0.iso.parte01",
-        "sha256": "c667a96c052caae1ea0d7933fd3a813ca8236ea31f33cddd25ecec4448c7b4ba",
+        "sha256": "bb490df271b32f6b92de7f45d24b66785b066d9a6d92a73bc5e35c45e6c965e8",
         "tamanho": 1992294400
       },
       {
         "url": "https://github.com/vinicon14/yamios-releases/releases/download/v1.0.0/yami-os-1.0.0.iso.parte02",
-        "sha256": "7e9e7ff33902e7c838ac4c1f2b11d14395500629059fe54425d349a96570f0d2",
-        "tamanho": 717651968
+        "sha256": "a4c8f45c9b22d56c150bdb3953e741f820f1bc8d6e1b245997810e8708b7a544",
+        "tamanho": 1326350336
       }
     ],
-    "observacao": "ISO 1.0.0 completa, dividida em duas partes para download. Junte as partes e confira o SHA-256 antes de gravar."
+    "observacao": "ISO 1.0.0 completa, em duas partes. Junte as partes com cat e confira o SHA-256 antes de gravar."
   },
   "fontes": {
     "vercel": "https://yami-site-pi.vercel.app/api/yamios/latest",
