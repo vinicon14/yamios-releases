@@ -133,7 +133,7 @@ describe("pareamento por e-mail", () => {
   it("cria token de confirmação e não o devolve em claro", async () => {
     const store = createMemoryStore();
     await seed(store);
-    const started = await startPairingByEmail(store, "u1", "PC de casa");
+    const started = await startPairingByEmail(store, "u@example.com", "PC de casa");
     expect(started.confirmToken).toMatch(/^[a-f0-9]{64}$/);
     expect(started.code).toBeUndefined();
   });
@@ -141,7 +141,7 @@ describe("pareamento por e-mail", () => {
   it("confirma com token válido e devolve token de dispositivo", async () => {
     const store = createMemoryStore();
     await seed(store);
-    const started = await startPairingByEmail(store, "u1", "PC de casa");
+    const started = await startPairingByEmail(store, "u@example.com", "PC de casa");
     const confirmed = await confirmPairingByEmail(store, started.confirmToken, "u1");
     expect(confirmed.deviceToken).toMatch(/^[a-f0-9]{64}$/);
     expect(await store.getDeviceByTokenHash(hashSecret(confirmed.deviceToken))).then((d) => d?.name)).toBe("PC de casa");
@@ -150,7 +150,7 @@ describe("pareamento por e-mail", () => {
   it("rejeita token usado duas vezes", async () => {
     const store = createMemoryStore();
     await seed(store);
-    const started = await startPairingByEmail(store, "u1", "PC de casa");
+    const started = await startPairingByEmail(store, "u@example.com", "PC de casa");
     await confirmPairingByEmail(store, started.confirmToken, "u1");
     await expect(confirmPairingByEmail(store, started.confirmToken, "u1")).rejects.toThrow("token inválido");
   });
@@ -174,8 +174,9 @@ export function generateConfirmToken() {
   return generateToken(32);
 }
 
-export async function startPairingByEmail(store, userId, deviceName, now = new Date()) {
-  const user = await store.getUserById(userId);
+export async function startPairingByEmail(store, email, deviceName, now = new Date()) {
+  const normalizedEmail = String(email ?? "").trim().toLowerCase();
+  const user = await store.getUserByEmail(normalizedEmail);
   if (!user) throw new Error("usuário não encontrado");
   if (!(await userHasPaidLicense(user.email, store))) throw new Error("licença necessária");
   const pollToken = generateToken(24);
@@ -185,7 +186,7 @@ export async function startPairingByEmail(store, userId, deviceName, now = new D
     id: crypto.randomUUID(),
     codeHash: hashPairingValue(confirmToken),
     pollTokenHash: hashPairingValue(pollToken),
-    userId: null,
+    userId: user.id,
     deviceId: null,
     deviceName: deviceName.trim().slice(0, 80) || "PC de casa",
     pendingDeviceToken: null,
@@ -196,7 +197,7 @@ export async function startPairingByEmail(store, userId, deviceName, now = new D
     confirmedAt: null,
     createdAt: nowIso(),
   });
-  return { pollToken, confirmToken, expiresAt };
+  return { pollToken, confirmToken, expiresAt, email: user.email };
 }
 
 export async function confirmPairingByEmail(store, confirmToken, userId) {
