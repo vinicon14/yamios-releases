@@ -51,10 +51,16 @@ Escopo executado: área desktop (`desenvolvimento/yami-os`) e pacote incremental
 - Alvos: `latest.json`, `desenvolvimento/yami-os/src`, `posinstalar.sh`, `yami-pacote.json`, árvore extraída do `app.asar` (181 arquivos varridos no total).
 - Resultado: 0 ocorrências.
 
-## Não executado nesta rodada
+## Verificações posteriores (22/11)
 
-- `npm run patch` e a verificação de idempotência do plano.
-- Testes do site (`/site`).
-- `tests/final-check.test.mjs` da Task 14: não criado, porque referencia caminhos fora do worktree.
-- Validação no WSL com `tar --zstd` (exige `zstd` no Ubuntu).
-- Commit, push, tag e release no GitHub.
+- `npm run patch` reaplicado a partir da base limpa: `PATCH_OK changed=2`, segunda execução `changed=0`.
+- Testes do site: 136/136 em 21 arquivos, `tsc` limpo, `eslint` sem erros (12 warnings pré-existentes), build OK.
+- `tests/final-check.test.mjs` criado no site; varredura de segredos e manifesto 0.8.0 passaram.
+- Validação em Linux: `zstd -dc ... | tar -xf -` em Ubuntu 24.04; `posinstalar.sh` executável, `app.asar` presente, sha256 confere (`e434778a…d6`).
+- Commit/push do site: `aeb9bf6` na `main`; `/api/yamios/latest` em produção devolve 0.8.0.
+- Release `v0.8.0` publicada no GitHub com `latest.json` e o pacote.
+
+## Ainda não executado
+
+- Teste visual e de login no Electron real (tentativa interrompida quando o controle do desktop voltou ao usuário).
+- ISO 0.8.0 (ambiente sem `live-build`/`xorriso`; F: indisponível).
